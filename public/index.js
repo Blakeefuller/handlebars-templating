@@ -1,6 +1,6 @@
 function createPhotoCard(photoURL, caption) {
 
-  var photoCardSection = document.createElement('section');
+  /*var photoCardSection = document.createElement('section');
   photoCardSection.classList.add('photo-card');
 
   var imgContainerDiv = document.createElement('div');
@@ -15,9 +15,16 @@ function createPhotoCard(photoURL, caption) {
   var captionDiv = document.createElement('div');
   captionDiv.classList.add('caption');
   captionDiv.textContent = caption;
-  photoCardSection.appendChild(captionDiv);
+  photoCardSection.appendChild(captionDiv);*/
 
-  return photoCardSection;
+  var context = {
+    url: photoURL,
+    caption: caption
+  }
+  var photoCard = Handlebars.templates.photoCard(context)
+  console.log("== photoCard:", photoCard)
+
+  return photoCard;
 
 }
 
@@ -31,9 +38,10 @@ function handleModalAcceptClick() {
     alert("You must fill in all of the fields!");
   } else {
 
-    var newPhotoCard = createPhotoCard(photoURL, caption);
+    var newPhotoCardHTML = createPhotoCard(photoURL, caption);
     var photoCardContainer = document.querySelector('.photo-card-container');
-    photoCardContainer.appendChild(newPhotoCard);
+    //photoCardContainer.appendChild(newPhotoCard);
+    photoCardContainer.insertAdjacentHTML('beforeend', newPhotoCardHTML)
     hideModal();
 
   }
